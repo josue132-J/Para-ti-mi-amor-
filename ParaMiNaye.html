@@ -1,0 +1,747 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ff4f81" />
+
+  <title> Para ti mis ojitos lindos 💙</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: #fff0f5;
+      color: #213083;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------
+       PANTALLA INICIAL
+    ------------------------- */
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25px;
+      background:
+        radial-gradient(circle at top, #d6e1ff, transparent 40%),
+        linear-gradient(135deg, #f0f1ff, #d7d7ff);
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-content {
+      max-width: 380px;
+      animation: aparecer 1.5s ease;
+    }
+
+    .intro-heart {
+      font-size: 75px;
+      animation: latido 1.3s infinite;
+      margin-bottom: 15px;
+    }
+
+    .intro h1 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .intro p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .open-button {
+      border: none;
+      background: #4f69ff;
+      color: white;
+      padding: 16px 35px;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(117, 79, 255, 0.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .open-button:active {
+      transform: scale(.94);
+    }
+
+    /* -------------------------
+       CONTENIDO
+    ------------------------- */
+
+    main {
+      display: none;
+    }
+
+    main.show {
+      display: block;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 70px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .small {
+      font-size: 15px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #4f3cb8;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin-bottom: 22px;
+    }
+
+    .text {
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 20px;
+      pointer-events: none;
+      animation: subir linear forwards;
+      z-index: 50;
+    }
+
+    .letter-section {
+      background: #ffffff;
+    }
+
+    .letter {
+      background: #fffafc;
+      padding: 32px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(30, 32, 100, 0.12);
+      text-align: left;
+      border: 1px solid #dbd9f8;
+      position: relative;
+    }
+
+    .letter::before {
+      content: "❤";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4f55ff;
+      color: white;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .letter p {
+      font-size: 17px;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .signature {
+      text-align: right;
+      font-style: italic;
+      margin-top: 25px;
+      font-size: 18px;
+    }
+
+    /* -------------------------
+       FOTOS
+    ------------------------- */
+
+    .photos-section {
+      background: linear-gradient(180deg, #f0f1ff, #e0e1ff);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .photo {
+      height: 220px;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(80, 30, 45, .15);
+      background: #dce1f8;
+    }
+
+    .photo:first-child {
+      grid-column: span 2;
+      height: 300px;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* -------------------------
+       RECUERDOS
+    ------------------------- */
+
+    .memories {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .memory {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(100, 30, 50, .08);
+    }
+
+    .memory span {
+      font-size: 25px;
+      margin-right: 10px;
+    }
+
+    .memory p {
+      display: inline;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* -------------------------
+       REGALO
+    ------------------------- */
+
+    .gift-section {
+      background: #304797;
+      color: rgb(255, 255, 255);
+    }
+
+    .gift-box {
+      font-size: 90px;
+      cursor: pointer;
+      animation: flotar 2s ease-in-out infinite;
+      margin: 30px 0;
+    }
+
+    .gift-message {
+      display: none;
+      animation: aparecer 1s ease;
+    }
+
+    .gift-message.show {
+      display: block;
+    }
+
+    .gift-message h3 {
+      font-size: 30px;
+      margin-bottom: 18px;
+    }
+
+    .gift-message p {
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    /* -------------------------
+       FINAL
+    ------------------------- */
+
+    .final-section {
+      background:
+        radial-gradient(circle at center, #d3d9ff, transparent 50%),
+        #7179a8;
+    }
+
+    .big-heart {
+      font-size: 100px;
+      animation: latido 1.3s infinite;
+      margin-bottom: 20px;
+    }
+
+    .final-section h2 {
+      font-size: 38px;
+    }
+
+    .final-text {
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    .from {
+      margin-top: 35px;
+      font-size: 17px;
+      font-style: italic;
+    }
+
+    /* -------------------------
+       BOTÓN
+    ------------------------- */
+
+    .next-button {
+      margin-top: 30px;
+      border: 2px solid #4f52ff;
+      background: transparent;
+      color: #4f4fff;
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .gift-section .next-button {
+      color: white;
+      border-color: white;
+    }
+
+    /* -------------------------
+       ANIMACIONES
+    ------------------------- */
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes latido {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes flotar {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    @media (max-width: 380px) {
+      h2 {
+        font-size: 29px;
+      }
+
+      .intro h1 {
+        font-size: 29px;
+      }
+
+      .photo {
+        height: 180px;
+      }
+
+      .photo:first-child {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==========================================
+       PANTALLA DE ENTRADA
+  =========================================== -->
+
+  <div class="intro" id="intro">
+
+    <div class="intro-content">
+
+      <div class="intro-heart">💙</div>
+
+      <h1>Para ti mi amorcito con esos ojitos que me encantan</h1>
+      <br><br>
+      <p>
+        Quiero entregarte esto, puede que sea algo pequeño...
+        pero viene desde un lugar muy grande...
+      </p>
+      <br>
+      <button class="open-button" onclick="abrirCarta()">
+        Abrir
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       CONTENIDO PRINCIPAL
+  =========================================== -->
+
+  <main id="main">
+
+
+    <!-- INTRO -->
+    <section>
+
+      <div class="container">
+
+        <div class="small">
+          Para ti mi bebe hermosa..
+        </div>
+
+        <h2>
+          Hay algo que quiero decirte...
+        </h2>
+
+        <p class="text">
+          No sabes lo feliz que me siento al saber que conoci a alguien
+          como tú, la persona con la que me siento en mi mundito
+        </p>
+
+        <button class="next-button" onclick="irA('carta')">
+          💙
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- CARTA -->
+    <section class="letter-section" id="carta">
+
+      <div class="container">
+
+        <div class="small">
+        </div>
+
+        <div class="letter">
+
+          <p>
+            Mi amorcito,
+          </p>
+
+          <p>
+            Quería hacerte este detallito porque a veces
+            siento que decir simplemente "te quiero"
+            no alcanza para explicar lo que me haces sentir..
+          </p>
+
+          <p>
+            Me gusta tenerte en mi vida, compartir
+            momentos contigo, hablar de cualquier
+            cosa y también estar contigo cuando las cosas
+            no son perfectas o en los momentos dificiles..
+          </p>
+
+          <p>
+            No sé qué nos traerá el futuro, pero sí sé
+            que quiero seguir construyendo recuerdos
+            contigo y disfrutar cada momento que podamos
+            compartir...
+          </p>
+
+          <p>
+            Gracias por ser tú, por cada sonrisa, cada mirada
+            que me fascina y por formar parte de
+            mi vida.
+          </p>
+
+          <p>
+            Y si alguna vez dudas de lo que siento,
+            recuerda todo esto...
+          </p>
+
+          <div class="signature">
+            con mucho amor,<br>
+            <strong> tu chiqui 💙</strong>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+
+    <!-- REGALO -->
+    <section class="gift-section" id="regalo">
+
+      <div class="container">
+
+        <div class="small" style="color:#b5c6ff;">
+          Y ahora...
+        </div>
+
+        <h2>
+          Tengo un pequeño regalo para ti
+        </h2>
+
+        <p>
+          Pero primero tienes que abrirlo.
+        </p>
+
+        <div
+          class="gift-box"
+          onclick="abrirRegalo()"
+          id="gift"
+        >
+          💙
+        </div>
+
+        <div class="gift-message" id="giftMessage">
+
+          <h3>
+            Recordarte mi amor que... 💙
+          </h3>
+          <p>
+            Tú y yo, un día cualquiera,
+            haciendo algo que nos guste,
+            riéndonos y creando otro recuerdo...
+          </p>
+
+          <p>
+            al final es lo que más quiero
+            <br>
+            <strong>
+            seguir compartiendo momentos contigo..
+            </strong>
+          </p>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- FINAL -->
+    <section class="final-section" id="final">
+
+      <div class="container">
+
+        <div class="big-heart">
+          💙
+        </div>
+
+        <h2>
+          Te quiero muchísimo
+        </h2>
+
+        <p class="final-text">
+          Gracias por cruzarte en mi camino y por dejarme
+          compartir parte de mi vida contigo..
+        </p>
+
+        <p class="final-text">
+          Espero que cuando leas esto sonrías y seas
+          una mujer muy feliz...
+        </p>
+
+        <p class="from">
+          Hecho especialmente para ti mi Naye, mi gran amor<br>
+          <strong> Josué, tu chiqui</strong>
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+    /* ==========================================
+       ABRIR LA PÁGINA
+    ========================================== */
+
+    function abrirCarta() {
+
+      const intro = document.getElementById("intro");
+      const main = document.getElementById("main");
+
+      intro.classList.add("hidden");
+      main.classList.add("show");
+
+      iniciarCorazones();
+
+      setTimeout(() => {
+
+        document.querySelector("main").scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }, 500);
+    }
+
+
+    /* ==========================================
+       SCROLL
+    ========================================== */
+
+    function irA(id) {
+
+      const elemento = document.getElementById(id);
+
+      if (elemento) {
+
+        elemento.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }
+
+    }
+
+
+    /* ==========================================
+       ABRIR REGALO
+    ========================================== */
+
+    function abrirRegalo() {
+
+      const gift = document.getElementById("gift");
+      const message = document.getElementById("giftMessage");
+
+      gift.innerHTML = "💝";
+
+      message.classList.add("show");
+
+      crearExplosionCorazones();
+
+    }
+
+
+    /* ==========================================
+       CORAZONES FLOTANTES
+    ========================================== */
+
+    function crearCorazon() {
+
+      const heart = document.createElement("div");
+
+      heart.className = "floating-heart";
+
+      const corazones = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝"
+      ];
+
+      heart.innerHTML =
+        corazones[
+          Math.floor(Math.random() * corazones.length)
+        ];
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.fontSize =
+        (15 + Math.random() * 20) + "px";
+
+      heart.style.animationDuration =
+        (4 + Math.random() * 5) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 9000);
+
+    }
+
+
+    function iniciarCorazones() {
+
+      setInterval(() => {
+
+        crearCorazon();
+
+      }, 900);
+
+    }
+
+
+    /* ==========================================
+       EXPLOSIÓN DE CORAZONES
+    ========================================== */
+
+    function crearExplosionCorazones() {
+
+      for (let i = 0; i < 25; i++) {
+
+        setTimeout(() => {
+
+          crearCorazon();
+
+        }, i * 80);
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
